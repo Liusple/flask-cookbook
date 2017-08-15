@@ -225,11 +225,38 @@ my_app/
 
 `app=Flask(__name__, static_folder='/path/to/static/folder')`
 
-在
+在它是如何工作一节提到的img src路径中，static指的是这个应用static_url_path的值。可以通过下面方法修改：
+
+```python
+app = Flask(
+	__name__, static_url_path='/differentstatic',
+	static_folder='/path/to/static/folder'
+)
+```
+
+现在，去获取静态文件，可以使用：
+
+` <img src='/differentstatic/logo.png'>`
+
+###### Tips
+
+```
+通常是一个好的方式是使用url_for去创建静态文件URLs，而不是明确的定义他们：
+<img src='{{ url_for('static', filename="logo.png") }}'>
+将会在下面章节看到更多这样的用法。
+```
+
+### 使用实例文件夹进行特定部署
 
 
 
+### 使用蓝图创建一个模块化的web应用
 
+蓝图是Flask的一个概念用来帮助大型应用模块化。通过在应用中一个中心位置注册所有的组件来保持应用分离。蓝本看起来像是一个应用对象，但却不是。一个蓝本更像是一个操作集合，能够被注册到应用上，和说明如果构建一个应用。
 
+##### 准备
 
+我们将会利用视图和模型构建一章的应用做为例子，通过使用蓝图修改它，使它正常工作。
+
+##### 怎么做
 
